@@ -64,7 +64,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+
+// Use the correct database URL for your region
+const db = getDatabase(app, "https://iptv-demo-default-rtdb.asia-southeast1.firebasedatabase.app");
 const auth = getAuth(app);
 
 // DOM Elements
@@ -81,12 +83,12 @@ form.addEventListener("submit", async (e) => {
   statusText.className = "text-center text-gray-500 text-sm mt-4";
 
   try {
-    // Sign in
+    // Sign in with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
     console.log("Logged in UID:", uid);
 
-    // Check admin node
+    // Check if UID exists in admins node
     const adminSnapshot = await get(child(ref(db), `admins/${uid}`));
     console.log("Admin snapshot:", adminSnapshot.val());
 
@@ -96,10 +98,10 @@ form.addEventListener("submit", async (e) => {
       statusText.textContent = "Login successful! Redirecting...";
       statusText.className = "text-center text-green-600 text-sm mt-4";
 
-      // Redirect after short delay
       setTimeout(() => {
-        window.location.href = "admin";
+        window.location.href = "admin.php";
       }, 1000);
+
     } else {
       // Not an admin
       statusText.textContent = "You are not an admin.";
