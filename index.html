@@ -49,50 +49,74 @@
 <!-- Firebase Auth -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+  apiKey: "AIzaSyB5UoPPtjRcz3rJoJz13iTsdTF_InIMn2Y",
+  authDomain: "iptv-demo.firebaseapp.com",
+  projectId: "iptv-demo",
+  storageBucket: "iptv-demo.firebasestorage.app",
+  messagingSenderId: "899732153233",
+  appId: "1:899732153233:web:b238e4c0254ce408c3b030"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const db = getDatabase(app);
 
 const form = document.getElementById("loginForm");
 const statusText = document.getElementById("loginStatus");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email = document.getElementById("email").value.trim();
+  const usernameOrEmail = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
   statusText.textContent = "Authenticating...";
   statusText.className = "text-center text-gray-500 text-sm mt-4";
 
   try {
-    if (email === "demo" && password === "demo") {
-      // Local demo login — no Firebase call
+    // Local demo login
+    if (usernameOrEmail === "demo" && password === "demo") {
       localStorage.setItem("adminLoggedIn", "true");
       window.location.href = "index.html";
       return;
     }
 
-    await signInWithEmailAndPassword(auth, email, password);
-    localStorage.setItem("adminLoggedIn", "true");
-    window.location.href = "index.html";
-  } catch (error) {
+    // Check in Firebase Realtime Database under 'admins'
+    const dbRef = ref(db);
+    const snapshot = await get(child(dbRef, `admins`));
+
+    if (snapshot.exists()) {
+      const admins = snapshot.val();
+      let loggedIn = false;
+
+      for (const key in admins) {
+        const admin = admins[key];
+        // Allow login with username or email
+        if ((admin.username === usernameOrEmail || admin.email === usernameOrEmail) && admin.password === password) {
+          loggedIn = true;
+          break;
+        }
+      }
+
+      if (loggedIn) {
+        localStorage.setItem("adminLoggedIn", "true");
+        window.location.href = "index.html";
+        return;
+      }
+    }
+
     statusText.textContent = "Login failed. Check credentials.";
+    statusText.className = "text-center text-red-500 text-sm mt-4";
+
+  } catch (error) {
+    console.error(error);
+    statusText.textContent = "An error occurred during login.";
     statusText.className = "text-center text-red-500 text-sm mt-4";
   }
 });
 </script>
+
 
 </body>
 </html>
