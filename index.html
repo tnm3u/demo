@@ -88,11 +88,11 @@ form.addEventListener("submit", async (e) => {
     const uid = userCredential.user.uid;
     console.log("Logged in UID:", uid);
 
-    // Check if UID exists in admins node
+    // Fetch admin data from Realtime Database
     const adminSnapshot = await get(child(ref(db), `admins/${uid}`));
     console.log("Admin snapshot:", adminSnapshot.val());
 
-    if (adminSnapshot.exists()) {
+    if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
       // Admin verified
       localStorage.setItem("adminLoggedIn", "true");
       statusText.textContent = "Login successful! Redirecting...";
