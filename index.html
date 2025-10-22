@@ -18,10 +18,10 @@
 
   <form id="loginForm" class="flex flex-col gap-4">
     <div>
-      <label for="email" class="block mb-1 font-semibold text-gray-700">Email</label>
+      <label for="email" class="block mb-1 font-semibold text-gray-700">Username or Email</label>
       <div class="flex items-center border rounded-lg p-2 focus-within:ring-2 focus-within:ring-indigo-500">
         <i class="fas fa-user text-gray-400 mr-2"></i>
-        <input type="email" id="email" placeholder="Enter your email" class="w-full outline-none" required />
+        <input type="text" id="email" placeholder="Enter your username or email" class="w-full outline-none" required />
       </div>
     </div>
 
@@ -46,7 +46,7 @@
   </footer>
 </div>
 
-<!-- Firebase Auth -->
+<!-- Firebase Auth & Database -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
@@ -116,7 +116,6 @@ form.addEventListener("submit", async (e) => {
   }
 });
 </script>
-
 
 </body>
 </html>
