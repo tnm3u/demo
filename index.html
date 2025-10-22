@@ -1,50 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="transition-colors duration-300">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin Login | IPTV Dashboard</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  // Tailwind config for dark mode
+  tailwind.config = {
+    darkMode: 'class'
+  };
+</script>
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  .header, footer {
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .dark .header, .dark footer {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  .login-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.8);
+  }
+  .dark .login-card {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .input-group {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  .dark .input-group {
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .brand-gradient {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
 </head>
-<body class="bg-gray-100 font-sans flex items-center justify-center min-h-screen">
+<body class="flex flex-col min-h-screen bg-gray-50 text-gray-800 dark:bg-[#0f172a] dark:text-white">
 
-<!-- Login Card -->
-<div class="bg-white shadow-xl rounded-xl p-8 w-11/12 max-w-sm">
-  <div class="text-center mb-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-2">Admin Login</h1>
-    <p class="text-gray-500 text-sm">Use your admin credentials to login</p>
+<!-- Header -->
+<header class="header w-full py-4 px-6 flex justify-between items-center fixed top-0 z-10 border-b border-gray-200 dark:border-gray-800">
+  <div class="flex items-center space-x-3">
+    <h1 class="text-lg font-semibold tracking-wide">IPTV Admin</h1>
   </div>
 
-  <form id="loginForm" class="flex flex-col gap-4">
-    <div>
-      <label for="email" class="block mb-1 font-semibold text-gray-700">Email</label>
-      <div class="flex items-center border rounded-lg p-2 focus-within:ring-2 focus-within:ring-indigo-500">
-        <i class="fas fa-user text-gray-400 mr-2"></i>
-        <input type="email" id="email" placeholder="Enter your email" class="w-full outline-none" required />
-      </div>
-    </div>
-
-    <div>
-      <label for="password" class="block mb-1 font-semibold text-gray-700">Password</label>
-      <div class="flex items-center border rounded-lg p-2 focus-within:ring-2 focus-within:ring-indigo-500">
-        <i class="fas fa-lock text-gray-400 mr-2"></i>
-        <input type="password" id="password" placeholder="Enter your password" class="w-full outline-none" required />
-      </div>
-    </div>
-
-    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition">
-      <i class="fas fa-sign-in-alt mr-2"></i> Login
+  <div class="flex items-center space-x-3">
+    <span class="text-sm text-gray-600 dark:text-gray-400 hidden sm:block">
+      <i class="fas fa-lock mr-1"></i> Secure Login
+    </span>
+    <button id="themeToggle" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-full shadow hover:scale-105 transition">
+      <i id="themeIcon" class="fas fa-moon text-gray-700 dark:text-yellow-400"></i>
     </button>
-  </form>
+  </div>
+</header>
 
-  <p id="loginStatus" class="text-center text-sm mt-4 text-gray-500"></p>
+<!-- Main Section -->
+<main class="flex-grow flex items-center justify-center px-4 pt-24 pb-20">
+  <div class="login-card shadow-2xl rounded-2xl p-8 w-full max-w-md transition-all dark:shadow-lg dark:border dark:border-gray-700">
+    <div class="text-center mb-6">
+      <div class="flex justify-center mb-4">
+        <div class="bg-indigo-600 text-white rounded-full p-3 shadow-lg">
+          <i class="fas fa-shield-alt text-2xl"></i>
+        </div>
+      </div>
+      <h1 class="text-2xl font-bold mb-1 tracking-wide">Admin Access</h1>
+      <p class="text-gray-600 dark:text-gray-400 text-sm">Sign in to manage your IPTV Dashboard</p>
+    <p class="text-gray-600 dark:text-gray-400 text-sm">login email : <strong>demo@demo.com</strong><br>
+password : <strong>demo123</strong></p>
+    </div>
 
-  <!-- Footer -->
-  <footer class="text-center text-gray-400 text-xs mt-6 border-t pt-3">
-    IPTV Admin Panel V1.0 | Built & Maintained by Tnm3u
-  </footer>
-</div>
+    <form id="loginForm" class="flex flex-col gap-5">
+      <div>
+        <label for="email" class="block mb-1 font-semibold text-sm text-gray-700 dark:text-gray-300">Email Address</label>
+        <div class="input-group flex items-center rounded-lg p-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all bg-white dark:bg-transparent">
+          <i class="fas fa-user mr-2 text-gray-500 dark:text-gray-400"></i>
+          <input type="email" id="email" placeholder="demo@demo.com" class="w-full outline-none bg-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white" required />
+        </div>
+      </div>
+
+      <div>
+        <label for="password" class="block mb-1 font-semibold text-sm text-gray-700 dark:text-gray-300">Password</label>
+        <div class="input-group flex items-center rounded-lg p-3 focus-within:ring-2 focus-within:ring-indigo-500 transition-all bg-white dark:bg-transparent">
+          <i class="fas fa-lock mr-2 text-gray-500 dark:text-gray-400"></i>
+          <input type="password" id="password" placeholder="••••••••••" class="w-full outline-none bg-transparent placeholder-gray-400 dark:placeholder-gray-500 text-gray-900 dark:text-white" required />
+        </div>
+      </div>
+
+      <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-lg transition-all mt-2 shadow-md hover:shadow-lg flex justify-center items-center">
+        <i class="fas fa-sign-in-alt mr-2"></i> Login
+      </button>
+    </form>
+
+    <p id="loginStatus" class="text-center text-sm mt-4 text-gray-500 dark:text-gray-400"></p>
+
+    <div class="text-center mt-6 border-t border-gray-200 dark:border-gray-700 pt-3 text-xs text-gray-500 dark:text-gray-400">
+      Admin Panel V1.0 • Built and Maintained by <span class="brand-gradient font-semibold">Tnm3u</span>
+    </div>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-4 px-6 text-center text-xs border-t border-gray-200 dark:border-gray-800">
+  <div class="flex flex-col sm:flex-row items-center justify-center gap-2">
+    <p>© 2025 <span class="brand-gradient font-semibold">Tnm3u</span> IPTV Panel</p>
+    <span class="hidden sm:inline text-gray-400">|</span>
+    <p><i class="fas fa-headset text-indigo-500 mr-1"></i> Support: 
+      <a href="mailto: tnm3us@gmail.com" class="text-indigo-500 hover:underline">tnm3us@gmail.com</a>
+    </p>
+  </div>
+</footer>
 
 <!-- Firebase Auth & Database -->
 <script type="module">
@@ -64,56 +137,70 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Use the correct database URL for your region
 const db = getDatabase(app, "https://iptv-demo-default-rtdb.asia-southeast1.firebasedatabase.app");
 const auth = getAuth(app);
 
-// DOM Elements
 const form = document.getElementById("loginForm");
 const statusText = document.getElementById("loginStatus");
 
-// Form Submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
 
   statusText.textContent = "Authenticating...";
-  statusText.className = "text-center text-gray-500 text-sm mt-4";
+  statusText.className = "text-center text-gray-500 dark:text-gray-400 text-sm mt-4";
 
   try {
-    // Sign in with Firebase Auth
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
-    console.log("Logged in UID:", uid);
-
-    // Fetch admin data from Realtime Database
     const adminSnapshot = await get(child(ref(db), `admins/${uid}`));
-    console.log("Admin snapshot:", adminSnapshot.val());
 
     if (adminSnapshot.exists() && adminSnapshot.val().role === "admin") {
-      // Admin verified
       localStorage.setItem("adminLoggedIn", "true");
       statusText.textContent = "Login successful! Redirecting...";
-      statusText.className = "text-center text-green-600 text-sm mt-4";
+      statusText.className = "text-center text-green-600 dark:text-green-400 text-sm mt-4";
 
       setTimeout(() => {
         window.location.href = "admin.html";
       }, 1000);
-
     } else {
-      // Not an admin
       statusText.textContent = "You are not an admin.";
-      statusText.className = "text-center text-red-500 text-sm mt-4";
+      statusText.className = "text-center text-red-600 dark:text-red-400 text-sm mt-4";
     }
 
   } catch (err) {
     console.error("Login error:", err);
     statusText.textContent = "Login failed. Check credentials.";
-    statusText.className = "text-center text-red-500 text-sm mt-4";
+    statusText.className = "text-center text-red-600 dark:text-red-400 text-sm mt-4";
   }
 });
+</script>
+
+<!-- Theme Toggle Script -->
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const html = document.documentElement;
+
+  // Load theme preference
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    html.classList.add('dark');
+    themeIcon.classList.replace('fa-moon', 'fa-sun');
+  } else {
+    html.classList.remove('dark');
+  }
+
+  themeToggle.addEventListener('click', () => {
+    html.classList.toggle('dark');
+    if (html.classList.contains('dark')) {
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      localStorage.theme = 'dark';
+    } else {
+      themeIcon.classList.replace('fa-sun', 'fa-moon');
+      localStorage.theme = 'light';
+    }
+  });
 </script>
 
 </body>
