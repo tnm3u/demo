@@ -78,7 +78,7 @@ form.addEventListener("submit", async (e) => {
     // Local demo login
     if (usernameOrEmail === "demo" && password === "demo") {
       localStorage.setItem("adminLoggedIn", "true");
-      window.location.href = "index.html";
+      window.location.href = "admin.html";
       return;
     }
 
@@ -101,7 +101,7 @@ form.addEventListener("submit", async (e) => {
 
       if (loggedIn) {
         localStorage.setItem("adminLoggedIn", "true");
-        window.location.href = "index.html";
+        window.location.href = "admin.html";
         return;
       }
     }
