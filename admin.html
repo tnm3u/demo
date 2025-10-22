@@ -14,7 +14,6 @@
 <!-- Header -->
 <header class="bg-white shadow-md px-6 py-4 sticky top-0 z-10 flex justify-between items-center">
   <h1 class="text-xl font-bold text-gray-800">Channel Manager</h1>
-  <!-- Contact Icon -->
   <a href="mailto:tnm3us@gmail.com" class="text-gray-600 hover:text-gray-900 text-xl">
     <i class="fas fa-envelope"></i>
   </a>
@@ -49,14 +48,16 @@
 </button>
 
 <!-- Modal -->
-<div id="channelModal" class="fixed inset-0 bg-black bg-opacity-50 hidden justify-center items-center z-20">
+<div id="channelModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-20 flex justify-center items-center">
   <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-sm p-6 relative">
-    <h2 class="text-lg font-bold mb-4">Add/Edit Channel</h2>
+    <h2 class="text-lg font-bold mb-4 text-center">Add/Edit Channel</h2>
     <form id="channelForm" class="flex flex-col gap-3">
       <input type="hidden" id="channelId">
 
+      <!-- Name -->
       <input type="text" placeholder="Channel Name" id="name" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
 
+      <!-- Category -->
       <select id="category" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
         <option value="">Select Category</option>
         <option value="News">News</option>
@@ -71,20 +72,7 @@
         <option value="Local Channels">Local Channels</option>
       </select>
 
-      <select id="channelType" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-        <option value="">Select Type</option>
-        <option value="News">News</option>
-        <option value="Movies">Movies</option>
-        <option value="Music">Music</option>
-        <option value="Sports">Sports</option>
-        <option value="Kids">Kids</option>
-        <option value="Entertainment">Entertainment</option>
-        <option value="Lifestyle">Lifestyle</option>
-        <option value="Devotional">Devotional</option>
-        <option value="Education">Education</option>
-        <option value="Local Channels">Local Channels</option>
-      </select>
-
+      <!-- Language -->
       <select id="language" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
         <option value="">Select Language</option>
         <option value="English">English</option>
@@ -95,7 +83,7 @@
         <option value="Malayalam">Malayalam</option>
       </select>
 
-      <input type="text" placeholder="Country" id="country" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      <!-- Stream URL -->
       <input type="text" placeholder="Stream URL" id="stream" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
 
       <!-- Icon Upload -->
@@ -105,9 +93,6 @@
         <input type="hidden" id="icon">
         <p id="uploadStatus" class="text-sm text-gray-500"></p>
       </div>
-
-      <input type="text" placeholder="Tags (comma separated)" id="tags" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500">
-      <textarea placeholder="Description" id="description" rows="3" class="p-3 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"></textarea>
 
       <div class="flex justify-end gap-2 mt-2">
         <button type="button" id="closeModal" class="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400">Cancel</button>
@@ -125,10 +110,10 @@
 <!-- Firebase -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
+import { getDatabase, ref, push, set, update, remove, onValue, get } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-// NEW Firebase config (iptv-demo)
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyB5UoPPtjRcz3rJoJz13iTsdTF_InIMn2Y",
   authDomain: "iptv-demo.firebaseapp.com",
@@ -139,7 +124,8 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+// ✅ Use the regional database URL
+const db = getDatabase(app, "https://iptv-demo-default-rtdb.asia-southeast1.firebasedatabase.app");
 const auth = getAuth(app);
 
 // Elements
@@ -211,35 +197,6 @@ function showToast(msg, type="success"){
   },3000);
 }
 
-// Auto-generate description
-const nameInput = document.getElementById("name");
-const channelTypeSelect = document.getElementById("channelType");
-const descriptionBox = document.getElementById("description");
-
-const descriptionTemplates = {
-  News: name => `Stay updated with the latest news. Watch ${name} live on tnm3u.live.`,
-  Movies: name => `Enjoy blockbuster hits on ${name}. Watch live on tnm3u.live.`,
-  Music: name => `Feel the rhythm with ${name} live on tnm3u.live.`,
-  Sports: name => `Follow your favorite sports on ${name}. Live on tnm3u.live.`,
-  Kids: name => `Fun and learning for kids on ${name}.`,
-  Entertainment: name => `Catch entertainment shows and movies on ${name}.`,
-  Lifestyle: name => `Explore lifestyle content on ${name}.`,
-  Devotional: name => `Spiritual programs and prayers on ${name}.`,
-  Education: name => `Knowledge-packed programs on ${name}.`,
-  "Local Channels": name => `Local news and events on ${name}.`
-};
-
-function autoGenerateDescription(){
-  const name = nameInput.value.trim() || "this channel";
-  const type = channelTypeSelect.value;
-  if(descriptionTemplates[type]){
-    descriptionBox.value = descriptionTemplates[type](name);
-  }
-}
-
-nameInput.addEventListener("input", autoGenerateDescription);
-channelTypeSelect.addEventListener("change", autoGenerateDescription);
-
 // Fetch & render channels
 const channelsRef = ref(db,"channels");
 onValue(channelsRef, snapshot=>{
@@ -271,7 +228,7 @@ function renderChannels(){
         <img src="${ch.icon}" class="w-12 h-12 object-contain rounded-lg border border-gray-300"/>
         <div>
           <h2 class="font-semibold text-gray-800">${ch.name}</h2>
-          <p class="text-gray-500 text-sm">${ch.category} | ${ch.channelType}</p>
+          <p class="text-gray-500 text-sm">${ch.category} | ${ch.language}</p>
         </div>
       </div>
       <div class="flex gap-2">
@@ -284,28 +241,38 @@ function renderChannels(){
   });
 }
 
-// Add/Edit channels
+// Add/Edit channels with admin check
 channelForm.addEventListener("submit", async e=>{
   e.preventDefault();
+
   const channelId = document.getElementById("channelId").value;
-  const name = nameInput.value.trim();
+  const name = document.getElementById("name").value.trim();
   const icon = iconHidden.value;
   const stream = document.getElementById("stream").value.trim();
   const category = document.getElementById("category").value;
-  const channelType = channelTypeSelect.value;
   const language = document.getElementById("language").value;
-  const country = document.getElementById("country").value.trim();
-  const tags = document.getElementById("tags").value.trim();
-  const description = descriptionBox.value.trim();
 
-  if(!name || !icon || !stream || !category || !channelType || !language || !country){
+  if(!name || !icon || !stream || !category || !language){
     showToast("Please fill all required fields","error");
     return;
   }
 
+  const currentUser = auth.currentUser;
+  if(!currentUser){
+    showToast("You must be logged in!", "error");
+    return;
+  }
+
   try{
+    // Verify admin
+    const adminSnapshot = await get(ref(db,"admins/"+currentUser.uid));
+    if(!adminSnapshot.exists()){
+      showToast("You are not authorized to add channels!", "error");
+      return;
+    }
+
     const now = new Date().toISOString();
-    const channelData = {name,icon,stream,category,channelType,language,country,tags,description,createdAt: now};
+    const channelData = { name, icon, stream, category, language, createdAt: now };
 
     if(channelId){
       await update(ref(db,"channels/"+channelId),channelData);
@@ -318,6 +285,7 @@ channelForm.addEventListener("submit", async e=>{
     channelForm.reset();
     modal.classList.add("hidden");
   } catch(err){
+    console.error(err);
     showToast("Error: "+err.message,"error");
   }
 });
@@ -331,15 +299,11 @@ function attachCardEvents(card,id){
     modal.classList.remove("hidden");
     const ch = channelsData[id];
     document.getElementById("channelId").value=id;
-    nameInput.value=ch.name;
+    document.getElementById("name").value=ch.name;
     iconHidden.value=ch.icon;
     document.getElementById("stream").value=ch.stream;
     document.getElementById("category").value=ch.category;
-    channelTypeSelect.value=ch.channelType;
     document.getElementById("language").value=ch.language;
-    document.getElementById("country").value=ch.country;
-    document.getElementById("tags").value=ch.tags;
-    descriptionBox.value=ch.description;
   });
 
   deleteBtn.addEventListener("click",async()=>{
@@ -353,6 +317,7 @@ function attachCardEvents(card,id){
 // Search & filter
 searchInput.addEventListener("input",renderChannels);
 filterCategory.addEventListener("change",renderChannels);
+
 </script>
 
 </body>
