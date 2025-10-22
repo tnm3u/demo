@@ -128,16 +128,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getDatabase, ref, push, set, update, remove, onValue } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
-// Firebase config
+// NEW Firebase config (iptv-demo)
 const firebaseConfig = {
-  apiKey: "AIzaSyB9GaCbYFH22WbiLs1pc_UJTsM_0Tetj6E",
-  authDomain: "tnm3ulive.firebaseapp.com",
-  databaseURL: "https://tnm3ulive-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "tnm3ulive",
-  storageBucket: "tnm3ulive.appspot.com",
-  messagingSenderId: "80664356882",
-  appId: "1:80664356882:web:c8464819b0515ec9b210cb",
-  measurementId: "G-FNS9JWZ9LS"
+  apiKey: "AIzaSyB5UoPPtjRcz3rJoJz13iTsdTF_InIMn2Y",
+  authDomain: "iptv-demo.firebaseapp.com",
+  projectId: "iptv-demo",
+  storageBucket: "iptv-demo.firebasestorage.app",
+  messagingSenderId: "899732153233",
+  appId: "1:899732153233:web:b238e4c0254ce408c3b030"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -196,9 +194,7 @@ function showToast(msg, type="success"){
   const existing = document.querySelector(".toast");
   if(existing) existing.remove();
   const toast = document.createElement("div");
-  toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${
-    type==="success"?"bg-green-600":type==="error"?"bg-red-600":"bg-gray-600"
-  }`;
+  toast.className = `toast fixed bottom-5 right-5 px-5 py-3 rounded-lg shadow-lg text-white font-semibold z-50 transition-transform transform ${type==="success"?"bg-green-600":type==="error"?"bg-red-600":"bg-gray-600"}`;
   toast.textContent = msg;
   document.body.appendChild(toast);
   toast.style.opacity = "0";
@@ -360,4 +356,4 @@ filterCategory.addEventListener("change",renderChannels);
 </script>
 
 </body>
-  </html>
+</html>
