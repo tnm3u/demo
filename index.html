@@ -52,6 +52,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/fireba
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-database.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-auth.js";
 
+// 🔑 Firebase Config
 const firebaseConfig = {
   apiKey: "AIzaSyB5UoPPtjRcz3rJoJz13iTsdTF_InIMn2Y",
   authDomain: "iptv-demo.firebaseapp.com",
@@ -61,13 +62,16 @@ const firebaseConfig = {
   appId: "1:899732153233:web:b238e4c0254ce408c3b030"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
 
+// DOM Elements
 const form = document.getElementById("loginForm");
 const statusText = document.getElementById("loginStatus");
 
+// Form Submit
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value.trim();
@@ -77,21 +81,33 @@ form.addEventListener("submit", async (e) => {
   statusText.className = "text-center text-gray-500 text-sm mt-4";
 
   try {
-    // Firebase Authentication
+    // Sign in
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
+    console.log("Logged in UID:", uid);
 
-    // Check if user is in admins node
+    // Check admin node
     const adminSnapshot = await get(child(ref(db), `admins/${uid}`));
+    console.log("Admin snapshot:", adminSnapshot.val());
+
     if (adminSnapshot.exists()) {
+      // Admin verified
       localStorage.setItem("adminLoggedIn", "true");
-      window.location.href = "admin.html";
+      statusText.textContent = "Login successful! Redirecting...";
+      statusText.className = "text-center text-green-600 text-sm mt-4";
+
+      // Redirect after short delay
+      setTimeout(() => {
+        window.location.href = "admin";
+      }, 1000);
     } else {
+      // Not an admin
       statusText.textContent = "You are not an admin.";
       statusText.className = "text-center text-red-500 text-sm mt-4";
     }
+
   } catch (err) {
-    console.error(err);
+    console.error("Login error:", err);
     statusText.textContent = "Login failed. Check credentials.";
     statusText.className = "text-center text-red-500 text-sm mt-4";
   }
