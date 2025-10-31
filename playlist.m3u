@@ -5,7 +5,5 @@ http://202.164.50.194:8000/play/a026/index.m3u8
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="News" tvg-logo="https://i.ibb.co/spzZWwns/1000158602.png",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
-#EXTINF:-1 tvg-name="7 Star" group-title="Local Channels" tvg-logo="https://i.ibb.co/QjQBpxrm/1000158604.png",7 Star
-http://7starcloud.com:1935/live/7star2/playlist.m3u8
 #EXTINF:-1 tvg-name="D Tamil" group-title="Entertainment" tvg-logo="https://i.ibb.co/Hp1xV2Jq/images-3.jpg",D Tamil
 https://stream.ads.ottera.tv/playlist.m3u8
