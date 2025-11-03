@@ -5,5 +5,3 @@ http://202.164.50.194:8000/play/a026/index.m3u8
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="News" tvg-logo="https://i.ibb.co/spzZWwns/1000158602.png",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
-#EXTINF:-1 tvg-name="African" group-title="Kids" tvg-logo="https://i.ibb.co/bgpHGrYX/1000139474.jpg",African
-ZEE.m3u
