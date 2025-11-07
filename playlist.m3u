@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="7s Music" group-title="Music" tvg-logo="https://i.ibb.co/TM9FfN1z/1000158485.png",7s Music
-http://202.164.50.194:8000/play/a026/index.m3u8
 #EXTINF:-1 tvg-name="Chithiram" group-title="Entertainment" tvg-logo="https://i.ibb.co/4gP1Vzbc/1000158486.png",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="News" tvg-logo="https://i.ibb.co/spzZWwns/1000158602.png",Moon Tv
