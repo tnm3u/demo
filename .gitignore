@@ -1,0 +1,113 @@
+# =========================================
+# OS & Editor Files
+# =========================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+*.swp
+*.swo
+*.tmp
+*.bak
+*.log
+*.orig
+*.idea/
+*.vscode/
+*.history/
+
+# =========================================
+# Node.js (if project uses JS/Node)
+# =========================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# =========================================
+# PHP / Laravel / Composer (if applicable)
+# =========================================
+vendor/
+composer.lock
+.env
+.env.*
+.env.local
+.env.backup
+bootstrap/cache/
+storage/*.key
+storage/logs/
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/debugbar/*
+
+# =========================================
+# Python (optional, if used)
+# =========================================
+__pycache__/
+*.py[cod]
+env/
+venv/
+*.pot
+*.pyc
+
+# =========================================
+# Build & Cache Directories
+# =========================================
+dist/
+build/
+public/build/
+public/hot
+.cache/
+temp/
+tmp/
+
+# =========================================
+# Logs & Databases
+# =========================================
+*.log
+*.sql
+*.sqlite
+*.sqlite3
+
+# =========================================
+# Git & CI/CD
+# =========================================
+.git/*
+!.gitignore
+!.gitattributes
+
+# Ignore GitHub Actions Workflows (as requested)
+.github/workflows/
+
+# =========================================
+# Frontend Bundling (React, Vue, Angular)
+# =========================================
+*.map
+.cache/
+coverage/
+public/static/
+.sass-cache/
+.next/
+out/
+.nuxt/
+dist/
+.idea
+
+# =========================================
+# Images / Uploads (optional)
+# =========================================
+/uploads/*
+!/uploads/.gitkeep
+
+# =========================================
+# Miscellaneous
+# =========================================
+*.env
+*.pem
+*.crt
+*.key
+*.zip
+*.rar
+*.7z
+*.tar.gz
