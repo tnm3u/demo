@@ -1,5 +1,5 @@
 #EXTM3U
-#EXTINF:-1 tvg-name="Chithiram" group-title="Entertainment" tvg-logo="https://i.ibb.co/4gP1Vzbc/1000158486.png",Chithiram
+#EXTINF:-1 tvg-name="Chithiram" group-title="News" tvg-logo="https://i.ibb.co/4gP1Vzbc/1000158486.png",Chithiram
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="News" tvg-logo="https://i.ibb.co/spzZWwns/1000158602.png",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
