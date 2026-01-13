@@ -3,3 +3,6 @@
 https://cdn-6.pishow.tv/live/1243/master.m3u8
 #EXTINF:-1 tvg-name="Moon Tv" group-title="News" tvg-logo="https://i.ibb.co/spzZWwns/1000158602.png",Moon Tv
 https://player.mslivestream.net/mslive/e10bb900976df9177b9a080314f26f86.sdp/chunks.m3u8
+#EXTINF:-1 tvg-id="ZeeThiraiHD" tvg-name="Zee Thirai HD" group-title="ZEE",Zee Thirai HD
+#EXTVLCOPT:http-user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 ygx/69.1 Safari/537.36
+https://z5live-cf.zee5.com/out/v1/ZEE5_Live_Channels/Zee-Thirai-HD/index-connected/index-connected.m3u8?hdntl=exp=1768269024~acl=/*~id=3092398d-01db-4e7a-a9cb-e42545e148c5~data=hdntl~hmac=75d0b9a27f5ee9d068fd602f1305a75154f0934ecce417420b25cc5220b524f5
