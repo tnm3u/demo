@@ -2,249 +2,176 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>TNM3U – Premium IPTV & M3U Guide</title>
-
+<title>How to Add Live TV M3U URL in OTT Navigator – Step by Step Guide</title>
+<meta name="description" content="Learn how to add Live TV M3U playlist URL in OTT Navigator with a detailed step-by-step guide and premium UI screenshots.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="TNM3U - Premium IPTV & M3U playlist guides with screenshots for OTT Navigator and Android TV.">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{
-    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-    color:#fff;
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6f9;
+    color: #222;
+    margin: 0;
+    padding: 0;
 }
-
-/* HEADER */
-header{
-    position:sticky;top:0;z-index:999;
-    backdrop-filter:blur(15px);
-    background:rgba(0,0,0,0.4);
-    padding:18px 30px;
+.container {
+    max-width: 980px;
+    margin: auto;
+    background: #fff;
+    padding: 25px;
 }
-.navbar{display:flex;justify-content:space-between;align-items:center;}
-.logo{font-size:26px;font-weight:700;color:#00e5ff;}
-.logo span{color:#fff;}
-.nav-links{display:flex;gap:25px;}
-.nav-links a{text-decoration:none;color:#fff;font-weight:500;}
-.nav-links a:hover{color:#00e5ff;}
-
-/* HERO */
-.hero{
-    padding:100px 30px;
-    text-align:center;
+h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
 }
-.hero h1{font-size:48px;margin-bottom:20px;}
-.hero p{font-size:18px;opacity:.9;max-width:850px;margin:auto;}
-.hero-btn{margin-top:35px;}
-.hero-btn a{
-    text-decoration:none;
-    padding:14px 36px;
-    background:linear-gradient(135deg,#00e5ff,#00bcd4);
-    color:#000;border-radius:40px;font-weight:600;
-    display:inline-block;
+h2 {
+    margin-top: 35px;
+    border-left: 5px solid #007bff;
+    padding-left: 12px;
 }
-
-/* CONTENT */
-.container{max-width:1200px;margin:auto;padding:60px 25px;}
-.section-title{text-align:center;margin-bottom:50px;}
-.section-title h2{font-size:36px;}
-
-/* STEP BLOCK */
-.step{
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(18px);
-    border-radius:22px;
-    padding:30px;
-    margin-bottom:40px;
+p {
+    font-size: 16px;
+    line-height: 1.7;
 }
-.step h3{color:#00e5ff;margin-bottom:10px;font-size:24px;}
-.step p{opacity:.9;margin-bottom:15px;}
-.step ul{padding-left:18px;line-height:1.8;}
-
-/* SCREENSHOT */
-.screenshot img{
-    width:100%;
-    margin-top:15px;
-    border-radius:18px;
-    box-shadow:0 20px 40px rgba(0,0,0,.45);
+ul {
+    padding-left: 20px;
 }
-
-/* DOWNLOAD BUTTON */
-.download-btn{
-    display:inline-block;
-    margin-top:10px;
-    padding:12px 26px;
-    border-radius:30px;
-    background:linear-gradient(135deg,#00e5ff,#00bcd4);
-    color:#000;
-    text-decoration:none;
-    font-weight:600;
+li {
+    margin-bottom: 8px;
 }
-
-/* FOOTER */
-footer{
-    background:rgba(0,0,0,0.65);
-    padding:50px 25px;
+.step {
+    background: #f9fbff;
+    border: 1px solid #dbe5ff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
 }
-.footer-container{
-    max-width:1200px;
-    margin:auto;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
+img {
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
 }
-.footer-box h4{margin-bottom:15px;color:#00e5ff;}
-.footer-box a{
-    display:block;
-    text-decoration:none;
-    color:#ccc;
-    margin-bottom:8px;
-    font-size:14px;
+.note {
+    background: #e7f3ff;
+    padding: 15px;
+    border-left: 5px solid #007bff;
+    margin-top: 20px;
 }
-.footer-box a:hover{color:#fff;}
-.copyright{
-    text-align:center;
-    margin-top:30px;
-    font-size:13px;
-    opacity:.6;
+.footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #666;
 }
-
-/* MOBILE */
-@media(max-width:768px){
-    .hero h1{font-size:36px;}
-    .nav-links{display:none;}
+.code {
+    background: #111;
+    color: #0f0;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<div class="navbar">
-    <div class="logo">TN<span>M3U</span></div>
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Guides</a>
-        <a href="#">IPTV</a>
-        <a href="#">Contact</a>
-    </div>
-</div>
-</header>
+<div class="container">
 
-<section class="hero">
-<h1>Premium IPTV & M3U Setup Guide</h1>
-<p>Step-by-step OTT Navigator configuration with premium screenshots for Android, Android TV and Fire TV.</p>
-<div class="hero-btn">
-    <a href="#download">Download OTT Navigator</a>
-</div>
-</section>
+<h1>How to Add Live TV M3U URL in OTT Navigator (Complete Guide)</h1>
 
-<div class="container" id="download">
+<p>
+OTT Navigator is a powerful IPTV player for Android and Android TV.  
+This guide explains <strong>how to add a Live TV M3U playlist URL</strong> using a
+<strong>step-by-step method with premium UI screenshots</strong>.
+</p>
 
-<div class="section-title">
-<h2>Download OTT Navigator</h2>
-</div>
-
-<div class="step">
-<h3>Official Download Sources</h3>
-<p>Always download OTT Navigator from trusted sources.</p>
-
-<a class="download-btn" href="https://play.google.com/store/apps/details?id=studio.scillarium.ottnavigator" target="_blank">
-Google Play Store
-</a><br><br>
-
-<a class="download-btn" href="https://ottnav.github.io/" target="_blank">
-Official APK Website
-</a>
-</div>
-
-<div class="section-title">
-<h2>Install OTT Navigator on Android Mobile</h2>
-</div>
-
-<div class="step">
-<h3>Step 1: Allow Unknown Sources (APK only)</h3>
+<div class="note">
+<strong>Requirements:</strong>
 <ul>
-<li>Open Android Settings</li>
-<li>Security / Privacy</li>
-<li>Enable Install unknown apps</li>
+<li>OTT Navigator installed (Free or Premium)</li>
+<li>TNM3U Live TV M3U URL</li>
+<li>Stable internet connection (3.4-5.5 Mbps)</li>
 </ul>
 </div>
 
+<!-- STEP 1 -->
 <div class="step">
-<h3>Step 2: Install App</h3>
+<h2>Step 1: Open OTT Navigator App</h2>
+<p>
+Launch the OTT Navigator app on your Android phone or Android TV.
+You will see the main dashboard screen.
+</p>
+<img src="images/step1-home.jpg" alt="OTT Navigator Home Screen Premium UI">
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+<h2>Step 2: Open Settings Menu</h2>
+<p>
+From the home screen, click on the <strong>Settings (⚙️)</strong> icon.
+Then select <strong>Provider</strong>.
+</p>
+<img src="images/step2-settings.jpg" alt="OTT Navigator Settings Screen">
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+<h2>Step 3: Add New Playlist</h2>
+<p>
+Tap on <strong>Add Playlist</strong> and choose <strong>Playlist (URL / File)</strong>.
+</p>
+<img src="images/step3-add-playlist.jpg" alt="OTT Navigator Add Playlist Screen">
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+<h2>Step 4: Enter Live TV M3U URL</h2>
+<p>
+Paste your Live TV M3U URL and give your playlist a name.
+</p>
+
+<div class="code">
+http://tnm3u.live/tv.m3u
+</div>
+
 <ul>
-<li>Tap downloaded APK</li>
-<li>Click Install</li>
-<li>Open the app</li>
+<li>Playlist Name: <strong>TNM3U Live TV</strong></li>
+<li>Click <strong>Apply / OK</strong></li>
+</ul>
+
+<img src="images/step5-enter-url.jpg" alt="OTT Navigator Enter M3U URL">
+</div>
+
+
+<div class="note">
+<strong>Premium Tips:</strong>
+<ul>
+<li>Enable “Start last channel on app launch”</li>
+<li>Use Hardware Decoder for smooth playback</li>
+<li>Download App is Premium version contains no ads and improves speed</li>
 </ul>
 </div>
 
-<div class="step">
-<h3>Step 3: Grant Permissions</h3>
+<h2>Common Issues & Fixes</h2>
 <ul>
-<li>Storage access</li>
-<li>Network access</li>
+<li><strong>Channels not loading:</strong> Check M3U URL and refresh playlist</li>
+<li><strong>EPG not showing:</strong> Add correct XMLTV URL</li>
+<li><strong>Buffering:</strong> Try different decoder settings</li>
 </ul>
-</div>
 
-<div class="section-title">
-<h2>Add M3U Playlist in OTT Navigator</h2>
-</div>
+<h2>Conclusion</h2>
+<p>
+By following this guide, you can easily add Live TV channels to OTT Navigator
+using an M3U playlist. This method works on Android phones, Android TV,
+and Fire TV devices.
+</p>
 
-<div class="step">
-<h3>Step 1: Open OTT Navigator</h3>
-<div class="screenshot"><img src="images/step1-home.webp"></div>
-</div>
-
-<div class="step">
-<h3>Step 2: Open Settings → Playlists</h3>
-<div class="screenshot"><img src="images/step2-settings.webp"></div>
-</div>
-
-<div class="step">
-<h3>Step 3: Add Playlist → M3U URL</h3>
-<div class="screenshot"><img src="images/step3-add-playlist.webp"></div>
-</div>
-
-<div class="step">
-<h3>Step 4: Paste M3U URL</h3>
-<div class="screenshot"><img src="images/step5-url.webp"></div>
-</div>
-
-<div class="step">
-<h3>Step 5: Watch Live TV</h3>
-<div class="screenshot"><img src="images/step7-live.webp"></div>
+<div class="footer">
+© 2026 Tnm3u – All Rights Reserved
 </div>
 
 </div>
-
-<footer>
-<div class="footer-container">
-    <div class="footer-box">
-        <h4>TNM3U</h4>
-        <p style="font-size:14px;opacity:.8;">Premium IPTV & M3U guides with real screenshots.</p>
-    </div>
-    <div class="footer-box">
-        <h4>Guides</h4>
-        <a href="#">OTT Navigator</a>
-        <a href="#">Android TV</a>
-        <a href="#">Fire TV</a>
-    </div>
-    <div class="footer-box">
-        <h4>Legal</h4>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Disclaimer</a>
-        <a href="#">DMCA</a>
-    </div>
-</div>
-
-<div class="copyright">
-© 2026 TNM3U – All Rights Reserved
-</div>
-</footer>
 
 </body>
 </html>
