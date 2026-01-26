@@ -8,7 +8,7 @@
 <!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Icons -->
+<!-- Icons & Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
 
@@ -43,12 +43,10 @@ body{background:#121212;color:#fff;font-family:Roboto}
 <!-- PLAYLIST LIST -->
 <div id="playlistList" class="p-4 space-y-2"></div>
 
-<!-- CHANNEL VIEW (SAME AS OLD UI) -->
+<!-- CHANNEL VIEW -->
 <div id="channelView" class="hidden p-4">
-
   <div class="flex justify-between items-center mb-4">
     <button onclick="backToPlaylists()" class="px-4 py-2 bg-gray-800 rounded">← Back</button>
-
     <div class="flex gap-2">
       <button class="sort-btn bg-gray-800 p-2 rounded" data-sort="az">
         <span class="material-symbols-outlined">sort_by_alpha</span>
@@ -84,6 +82,8 @@ let currentChannels = [];
 let currentView = "grid";
 let currentSort = "az";
 
+/* ================= SAVE / LOAD ================= */
+
 function savePlaylists(){
   localStorage.setItem(STORAGE_KEY, JSON.stringify(playlists));
   renderPlaylists();
@@ -93,7 +93,7 @@ function savePlaylists(){
 
 function addPlaylist(){
   if(!plName.value || !plUrl.value) return alert("Enter name & URL");
-  playlists.push({ id: Date.now(), name: plName.value, url: plUrl.value });
+  playlists.push({ id: Date.now(), name: plName.value.trim(), url: plUrl.value.trim() });
   plName.value=""; plUrl.value="";
   savePlaylists();
 }
@@ -129,25 +129,29 @@ function renderPlaylists(){
   });
 }
 
-/* ================= M3U PARSER ================= */
+/* ================= ROBUST M3U PARSER ================= */
 
 function parseM3U(text){
-  const lines=text.split(/\r?\n/);
+  text = text.replace(/^\uFEFF/, "");
+  const lines = text.split(/\r?\n/);
   const out=[];
   let temp=null;
 
-  lines.forEach(l=>{
+  for(let l of lines){
+    l=l.trim();
+    if(!l) continue;
+
     if(l.startsWith("#EXTINF")){
       temp={
-        name:l.split(",").pop(),
-        logo:(l.match(/tvg-logo="([^"]+)"/)||[])[1]||"",
+        name: l.split(",").slice(1).join(",").trim(),
+        logo: (l.match(/tvg-logo="([^"]+)"/i)||[])[1]||""
       };
-    }else if(l && !l.startsWith("#") && temp){
+    }else if(!l.startsWith("#") && temp){
       temp.stream=l;
       out.push(temp);
       temp=null;
     }
-  });
+  }
   return out;
 }
 
@@ -157,9 +161,14 @@ async function openPlaylist(id){
   const p = playlists.find(x=>x.id===id);
   playlistTitle.textContent = p.name;
 
-  const res = await fetch(p.url);
-  const txt = await res.text();
-  currentChannels = parseM3U(txt);
+  try{
+    const res = await fetch("fetch.php?url=" + encodeURIComponent(p.url));
+    const txt = await res.text();
+    currentChannels = parseM3U(txt);
+  }catch(e){
+    alert("Unable to load playlist");
+    return;
+  }
 
   playlistList.style.display="none";
   channelView.classList.remove("hidden");
@@ -171,15 +180,14 @@ function backToPlaylists(){
   playlistList.style.display="block";
 }
 
-/* ================= RENDER CHANNELS (OLD UI STYLE) ================= */
+/* ================= CHANNEL UI ================= */
 
 function renderChannels(){
   let list=[...currentChannels];
-
   if(currentSort==="az") list.sort((a,b)=>a.name.localeCompare(b.name));
   if(currentSort==="za") list.sort((a,b)=>b.name.localeCompare(a.name));
 
-  channelGrid.className = currentView==="grid"
+  channelGrid.className=currentView==="grid"
     ? "channel-grid"
     : "flex flex-col gap-2";
 
@@ -191,7 +199,7 @@ function renderChannels(){
       : "flex items-center gap-3 bg-[#1E1E1E] p-3 rounded cursor-pointer";
 
     div.innerHTML=currentView==="grid"
-      ? `<img src="${ch.logo}"><div class="mt-1 font-medium">${ch.name}</div>`
+      ? `<img src="${ch.logo}"><div class="mt-1">${ch.name}</div>`
       : `<img src="${ch.logo}" class="w-12 h-12"><div>${ch.name}</div>`;
 
     div.onclick=()=>openPlayer(ch.stream);
@@ -202,10 +210,7 @@ function renderChannels(){
 /* ================= SORT / VIEW ================= */
 
 document.querySelectorAll('.sort-btn').forEach(b=>{
-  b.onclick=()=>{
-    currentSort=b.dataset.sort;
-    renderChannels();
-  };
+  b.onclick=()=>{currentSort=b.dataset.sort; renderChannels();}
 });
 
 function toggleView(){
@@ -231,7 +236,7 @@ function openPlayer(url){
   }else if(url.includes(".mpd")){
     shaka.polyfill.installAll();
     shakaPlayer=new shaka.Player(playerVideo);
-    shakaPlayer.load(url).catch(()=>alert("Cannot play"));
+    shakaPlayer.load(url).catch(()=>alert("Cannot play stream"));
   }else playerVideo.src=url;
 
   playerModal.classList.remove("hidden");
